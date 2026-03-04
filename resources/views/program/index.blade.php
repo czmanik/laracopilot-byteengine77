@@ -10,7 +10,6 @@
 </div>
 
 <div class="max-w-6xl mx-auto px-4 py-10">
-    <!-- Filtry -->
     <form method="GET" action="{{ route('program.index') }}" class="flex flex-wrap gap-3 mb-8">
         <select name="category" class="border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-rose-400">
             <option value="">Všechny typy</option>
@@ -25,12 +24,11 @@
             @endforeach
         </select>
         <button type="submit" class="bg-rose-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-rose-700 transition">Filtrovat</button>
-        @if(request()->hasAny(['category', 'place', 'day']))
+        @if(request()->hasAny(['category', 'place']))
         <a href="{{ route('program.index') }}" class="border border-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm hover:bg-gray-50">Zrušit filtry</a>
         @endif
     </form>
 
-    <!-- Sloty -->
     @if($slots->count() > 0)
     <div class="space-y-4">
         @php $currentDay = null; @endphp
@@ -39,7 +37,7 @@
                 @php $currentDay = $slot->starts_at->format('Y-m-d'); @endphp
                 <div class="mt-8 mb-4">
                     <h2 class="text-xl font-bold text-gray-700 border-b border-gray-200 pb-2">
-                        {{ $slot->starts_at->locale('cs')->isoFormat('dddd, D. MMMM YYYY') }}
+                        {{ $slot->starts_at->translatedFormat('l, j. F Y') }}
                     </h2>
                 </div>
             @endif
@@ -53,19 +51,14 @@
                         <div class="flex flex-wrap items-center gap-2 mb-1">
                             <h3 class="font-bold text-lg">{{ $slot->title }}</h3>
                             @if($slot->activityCategory)
-                            <span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {{ $slot->activityCategory->color }}22; color: {{ $slot->activityCategory->color }}">
-                                {{ $slot->activityCategory->name }}
-                            </span>
+                            <span class="text-xs px-2 py-0.5 rounded-full" style="background-color: {{ $slot->activityCategory->color }}22; color: {{ $slot->activityCategory->color }}">{{ $slot->activityCategory->name }}</span>
                             @endif
                         </div>
                         @if($slot->performer)
                         <p class="text-gray-500 text-sm">🎤 {{ $slot->performer }}</p>
                         @endif
-                        @if($slot->description)
-                        <p class="text-gray-400 text-sm mt-1">{{ $slot->description }}</p>
-                        @endif
                     </div>
-                    <div class="text-right">
+                    <div class="text-right flex-shrink-0">
                         <a href="{{ route('places.show', $slot->place->slug) }}" class="text-rose-600 text-sm font-medium hover:underline">{{ $slot->place->name }}</a>
                         <div class="text-gray-400 text-xs">{{ $slot->stage->name }}</div>
                     </div>

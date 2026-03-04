@@ -18,6 +18,7 @@ class ProgramController extends Controller
         )->get();
 
         $places = Place::where('status', 'approved')
+            ->where('is_active', true)
             ->when($activeEvent, fn ($q) => $q->where('event_id', $activeEvent->id))
             ->pluck('name', 'id');
 
@@ -25,9 +26,8 @@ class ProgramController extends Controller
             ->with(['place', 'stage', 'activityCategory'])
             ->when(request('category'), fn ($q) => $q->where('activity_category_id', request('category')))
             ->when(request('place'), fn ($q) => $q->where('place_id', request('place')))
-            ->when(request('day'), fn ($q) => $q->whereDate('starts_at', request('day')))
             ->orderBy('starts_at')
-            ->paginate(20);
+            ->paginate(30);
 
         return view('program.index', compact('slots', 'categories', 'places', 'activeEvent'));
     }

@@ -27,12 +27,19 @@ class PlaceController extends Controller
         return view('places.index', compact('places', 'placeTypes', 'activeEvent'));
     }
 
-    public function show($slug)
+    public function show(string $slug)
     {
         $place = Place::where('slug', $slug)
             ->where('status', 'approved')
             ->where('is_active', true)
-            ->with(['placeType', 'organizer', 'stages.programSlots.activityCategory', 'accessibilityOptions', 'event'])
+            ->with([
+                'placeType',
+                'organizer',
+                'stages.programSlots' => fn ($q) => $q->where('status', 'published')->orderBy('starts_at'),
+                'stages.programSlots.activityCategory',
+                'accessibilityOptions',
+                'event',
+            ])
             ->firstOrFail();
 
         return view('places.show', compact('place'));

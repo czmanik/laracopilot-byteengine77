@@ -24,7 +24,6 @@ class PageController extends Controller
             'message' => 'required|string|min:10',
         ]);
 
-        // Mail lze přidat později
         return back()->with('success', 'Zpráva byla odeslána. Ozveme se vám co nejdříve!');
     }
 }

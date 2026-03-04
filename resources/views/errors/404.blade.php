@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', '404 – Stránka nenalezena')
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
+<div class="min-h-96 flex items-center justify-center py-24">
     <div class="text-center px-4">
         <div class="text-9xl font-black text-rose-200 mb-4">404</div>
         <h1 class="text-3xl font-bold text-gray-800 mb-4">Stránka nenalezena</h1>

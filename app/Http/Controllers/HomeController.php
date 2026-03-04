@@ -21,7 +21,6 @@ class HomeController extends Controller
             ->get();
 
         $upcomingSlots = ProgramSlot::where('status', 'published')
-            ->where('starts_at', '>=', now())
             ->with(['place', 'stage', 'activityCategory'])
             ->orderBy('starts_at')
             ->limit(6)

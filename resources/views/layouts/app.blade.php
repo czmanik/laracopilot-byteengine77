@@ -10,71 +10,51 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .nav-link { @apply text-white/80 hover:text-white transition-colors duration-200; }
-        .nav-link.active { @apply text-white font-semibold; }
     </style>
     @stack('head')
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-<!-- Navigace -->
 <nav class="bg-gradient-to-r from-rose-700 to-rose-500 shadow-lg sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4">
         <div class="flex items-center justify-between h-16">
             <a href="{{ route('home') }}" class="flex items-center gap-2">
                 <span class="text-white font-bold text-xl tracking-tight">🌃 Žižkov 2026</span>
             </a>
-
-            <!-- Desktop menu -->
             <div class="hidden md:flex items-center gap-6">
-                <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Úvod</a>
-                <a href="{{ route('places.index') }}" class="nav-link {{ request()->routeIs('places.*') ? 'active' : '' }}">Místa</a>
-                <a href="{{ route('program.index') }}" class="nav-link {{ request()->routeIs('program.*') ? 'active' : '' }}">Program</a>
-                <a href="{{ route('about') }}" class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}">O nás</a>
-                <a href="{{ route('contact') }}" class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}">Kontakt</a>
+                <a href="{{ route('home') }}" class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('home') ? 'font-semibold text-white' : '' }}">Úvod</a>
+                <a href="{{ route('places.index') }}" class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('places.*') ? 'font-semibold text-white' : '' }}">Místa</a>
+                <a href="{{ route('program.index') }}" class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('program.*') ? 'font-semibold text-white' : '' }}">Program</a>
+                <a href="{{ route('about') }}" class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('about') ? 'font-semibold text-white' : '' }}">O nás</a>
+                <a href="{{ route('contact') }}" class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('contact') ? 'font-semibold text-white' : '' }}">Kontakt</a>
                 <a href="/admin" class="ml-4 bg-white text-rose-600 font-semibold px-4 py-1.5 rounded-full text-sm hover:bg-rose-50 transition">Admin</a>
             </div>
-
-            <!-- Mobile burger -->
             <button id="mobile-toggle" class="md:hidden text-white p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
         </div>
-
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden pb-4">
-            <div class="flex flex-col gap-3">
-                <a href="{{ route('home') }}" class="nav-link">Úvod</a>
-                <a href="{{ route('places.index') }}" class="nav-link">Místa</a>
-                <a href="{{ route('program.index') }}" class="nav-link">Program</a>
-                <a href="{{ route('about') }}" class="nav-link">O nás</a>
-                <a href="{{ route('contact') }}" class="nav-link">Kontakt</a>
-                <a href="/admin" class="text-white font-semibold">→ Admin</a>
-            </div>
+        <div id="mobile-menu" class="hidden md:hidden pb-4 flex flex-col gap-3">
+            <a href="{{ route('home') }}" class="text-white/80 hover:text-white">Úvod</a>
+            <a href="{{ route('places.index') }}" class="text-white/80 hover:text-white">Místa</a>
+            <a href="{{ route('program.index') }}" class="text-white/80 hover:text-white">Program</a>
+            <a href="{{ route('about') }}" class="text-white/80 hover:text-white">O nás</a>
+            <a href="{{ route('contact') }}" class="text-white/80 hover:text-white">Kontakt</a>
+            <a href="/admin" class="text-white font-semibold">→ Admin</a>
         </div>
     </div>
 </nav>
 
-<!-- Flash zprávy -->
 @if(session('success'))
-<div class="bg-green-500 text-white text-center py-3 px-4">
-    {{ session('success') }}
-</div>
+<div class="bg-green-500 text-white text-center py-3 px-4">{{ session('success') }}</div>
 @endif
 @if(session('error'))
-<div class="bg-red-500 text-white text-center py-3 px-4">
-    {{ session('error') }}
-</div>
+<div class="bg-red-500 text-white text-center py-3 px-4">{{ session('error') }}</div>
 @endif
 
-<!-- Obsah -->
-<main>
-    @yield('content')
-</main>
+<main>@yield('content')</main>
 
-<!-- Footer -->
 <footer class="bg-gray-900 text-white mt-16">
     <div class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div class="md:col-span-2">
@@ -95,11 +75,6 @@
             <ul class="space-y-2 text-sm text-gray-400">
                 <li>📧 info@zizkovska-noc.cz</li>
                 <li>📍 Praha 3 – Žižkov</li>
-                <li class="pt-2">
-                    <a href="https://www.facebook.com" target="_blank" class="hover:text-white transition">Facebook</a>
-                    &nbsp;·&nbsp;
-                    <a href="https://www.instagram.com" target="_blank" class="hover:text-white transition">Instagram</a>
-                </li>
             </ul>
         </div>
     </div>

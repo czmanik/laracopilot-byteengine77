@@ -6,10 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -24,11 +22,6 @@ class User extends Authenticatable implements FilamentUser
         'password'          => 'hashed',
         'is_active'         => 'boolean',
     ];
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return $this->is_active && in_array($this->role, ['super_admin', 'admin', 'place_manager']);
-    }
 
     public function isSuperAdmin(): bool
     {

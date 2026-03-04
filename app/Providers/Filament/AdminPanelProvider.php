@@ -31,7 +31,6 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Rose,
             ])
             ->brandName('Žižkovská noc & Mezidvorky')
-            ->brandLogo(null)
             ->favicon(asset('favicon.ico'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
